@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha512-9BwLAVqqt6oFdXohPLuNHxhx36BVj5uGSGmizkmGkgl3uMSgNalKc/smum+GJU/TTP0jy0+ruwC3xNAk3F759A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Femi's Todo List</h1>    
+        </header>
+        
+        <form>
+            <div class="form-container">
+                <input type="text" class="todo-input">
+                <button class="todo-button" type="submit">
+                    <i class="fas fa-plus-square"></i>
+                </button>
+            </div>
+            <p class="error hidden">
+                Cannot add an empty todo!
+            </p>
+        </form>
+
+       
+
+        <div class="todo-container">
+            <ul class="todo-list">
+            
+            </ul>
+            <div class="modal hidden">
+                <div class="modal-container">
+                    <p class="modal-question">Do you want to delete this task ?</p>
+                    <div class="btns">
+                        <button class="cancel">Cancel</button>
+                        <button class="del">Yes, I want to.</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   <script src="main.js"></script>
+</body>
+</html>

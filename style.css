@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-image: linear-gradient(120deg, #6a8e7f,#989572);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+}
+
+.container{
+    width:80%;
+    margin: 0 auto;
+}
+
+header{
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+header,form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 20vh;
+}
+
+.form-container{
+    display: flex;
+}
+
+form{
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+}
+
+form input, form button{
+    padding: 6px;
+    font-size: 1.5rem;
+    border: none;
+    background-color: white;
+}
+
+form input{
+    outline:none;
+}
+
+form button{
+    cursor: pointer;
+    color: #989572;
+    transition: all 0.3s ease;
+}
+
+form button:hover{
+    background-color: #989572;
+    color: white;
+}
+
+.error{
+    margin: 5px 0;
+    color: #da2121;
+}
+
+.todo-container{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
+
+.todo{
+    background-color: white;
+    color: black;
+    display: flex;
+    font-size: 1.5rem;
+    justify-content: space-between;
+    transition: all .5s ease;
+    animation: pop .3s;
+}
+
+
+.todo-list{
+    min-width:30%;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+.todo-item{
+    flex-grow: 1;
+    list-style-type: none;
+    padding: 0 6px;
+    transition: all .2s ease;
+}
+
+.complete,.delete{
+    color:white;
+    padding:3px 6px;
+    font-size: 1rem;
+    background-color: rgb(182, 28, 14);
+    border: none;
+    cursor: pointer;
+}
+
+.complete{
+    background-color: rgb(7, 87, 7);
+}
+
+.fa-check,
+.fa-trash{
+    pointer-events: none;
+}
+
+.completed{
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.fall{
+    transform: translateY(8rem) rotateZ(20deg);
+    opacity: 0;
+}
+
+.remove{
+    animation: shake 0.5s 0.2s;
+}
+
+/* Modal */
+.modal{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+    display: grid;
+    place-items: center;
+    z-index: 1;
+}
+
+.modal-container{
+    background-color: white;
+    color: black;
+    padding:1rem;
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+    animation:zoom 0.2s;
+}
+
+.modal-question{
+    line-height: 1.625;
+}
+
+.btns{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btns button{
+    padding: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    background-color: #a62f2f;
+    color: white;
+    border-radius: 4px;
+    font-weight:600;
+    transition: background-color 0.3s;
+}
+
+.btns button:hover{
+    color: #a62f2f;
+    background-color: white;
+    border: 2px solid #a62f2f;
+    padding: 6px;
+}
+
+.btns .del{
+    color: #a62f2f;
+    background-color: white;
+    border: 2px solid #a62f2f;
+}
+
+.btns .del:hover{
+    background-color: #a62f2f;
+    color: white;
+    padding: 8px;
+}
+
+.hidden{
+    display: none;
+}
+
+@keyframes pop{
+    from{
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    50%{
+        opacity: 0.5;
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0%{transform: rotateY(-1deg);}
+    10%{transform: rotateZ(1deg);}
+    30%{transform: rotateZ(-1deg);}
+    50%{transform: rotateZ(1deg);}
+    70%{transform: rotateZ(-1deg);}
+    90%{transform: rotateZ(1deg);}
+    99%{transform: rotateZ(-1deg);}
+    100%{transform: rotateZ(0);}
+}
+
+@keyframes zoom{
+    from{
+        opacity: 0;
+        transform: scale(0);
+    }
+    50%{
+        opacity: 0.5;
+        transform: scale(0.5);
+    }
+    to{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
