@@ -1,86 +1,125 @@
 // Query Selectors
-const todoInput = document.querySelector('.todo-input');
-const todoButton = document.querySelector('.todo-button');
-const todoList = document.querySelector('.todo-list');
-const modal = document.querySelector('.modal');
+const todoInput = document.querySelector(".todo-input");
+const todoButton = document.querySelector(".todo-button");
+const todoList = document.querySelector(".todo-list");
+const modal = document.querySelector(".modal");
+const filterList = document.querySelector(".filter-list");
 
 // EventListeners
-todoButton.addEventListener('click',addTodo);
-todoList.addEventListener('click',deleteCheck);
+todoButton.addEventListener("click", addTodo);
+todoList.addEventListener("click", deleteCheck);
+filterList.addEventListener("click", filterTodo);
 
 // Functions
-function addTodo(e){
-    // Prevent For from submitting
-    e.preventDefault();
-    
-    // Create the main div
-    const todoDiv = document.createElement('div');
-    todoDiv.classList.add('todo');
+const todos = todoList.childNodes;
+const total = document.querySelector(".total");
+let len = 1;
 
-    // Create the li tag
-    const li = document.createElement('li');
-    li.textContent = todoInput.value
-    li.classList.add('todo-item');
+function addTodo(e) {
+  // Prevent For from submitting
+  e.preventDefault();
 
-    // Create the completed button
-    const btn1 = document.createElement('button');
-    // Create Check Icon
-    btn1.innerHTML = '<i class="fas fa-check"></i>'
-    btn1.classList.add('complete');
+  // Create the main div
+  const todoDiv = document.createElement("div");
+  todoDiv.classList.add("todo");
 
-    // Create the delete button
-    const btn2 = document.createElement('button');
-    // Create Delete Icon
-    btn2.innerHTML = '<i class="fas fa-trash"></i>'
-    btn2.classList.add('delete');
+  // Create the li tag
+  const li = document.createElement("li");
+  li.textContent = todoInput.value;
+  li.classList.add("todo-item");
 
-    // Append All to the main div
-    todoDiv.appendChild(li);
-    todoDiv.appendChild(btn1);
-    todoDiv.appendChild(btn2);
+  // Create the completed button
+  const btn1 = document.createElement("button");
+  // Create Check Icon
+  btn1.innerHTML = '<i class="fas fa-check"></i>';
+  btn1.classList.add("complete");
 
-    // Append A Todo
-    const errorMsg = document.querySelector('.error'); 
-    if(todoInput.value === ''){
-        errorMsg.classList.remove('hidden');
-    } else{
-        errorMsg.classList.add('hidden');
-        todoList.appendChild(todoDiv);
-    }
+  // Create the delete button
+  const btn2 = document.createElement("button");
+  // Create Delete Icon
+  btn2.innerHTML = '<i class="fas fa-trash"></i>';
+  btn2.classList.add("delete");
 
-    //Reset input value to an empty string 
-    todoInput.value = '';
+  // Append All to the main div
+  todoDiv.appendChild(li);
+  todoDiv.appendChild(btn1);
+  todoDiv.appendChild(btn2);
+
+  // Append A Todo
+  const errorMsg = document.querySelector(".error");
+  if (todoInput.value === "") {
+    errorMsg.classList.remove("hidden");
+  } else {
+    errorMsg.classList.add("hidden");
+    todoList.appendChild(todoDiv);
+  }
+
+  //Reset input value to an empty string
+  todoInput.value = null;
+
+  //counting the number of todos
+  total.textContent = `You have ${len++} todo(s).`;
 }
 
-// const todo = item.parentElement;
-// //Animation
-// todo.classList.add('fall');
-// todo.addEventListener('transitionend',() => todo.remove());
+function deleteCheck(e) {
+  const item = e.target;
+  if (item.classList.contains("complete")) {
+    const todo = item.parentElement;
+    todo.classList.toggle("completed");
+  } else if (item.classList.contains("delete")) {
+    const todo = item.parentElement;
+    modal.classList.remove("hidden");
 
-function deleteCheck(e){
-    const item = e.target;
-    if(item.classList.contains('complete')){
-        const todo = item.parentElement;
-        todo.classList.toggle('completed');
-    } else if(item.classList.contains('delete')){
-        modal.classList.remove('hidden');
-        const todo = item.parentElement;
+    //Animation
+    todo.classList.add("remove");
 
-        //Animation
-        todo.classList.add('remove');
-        
+    // Confirmation
+    const cancel = document.querySelector(".cancel");
+    const del = document.querySelector(".del");
 
-        // Confirmation
-        modal.addEventListener('click',(e)=>{
-            const modalTarget = e.target;
-            if(modalTarget.classList.contains('cancel') || modalTarget.classList.contains('modal')){
-                modal.classList.add('hidden');
-            } else if(modalTarget.classList.contains('del')){
-                modal.classList.add('hidden');
-                
-                todo.classList.add('fall');
-                todo.addEventListener('transitionend',() => todo.remove());
-            }
-        });
+    cancel.addEventListener("click", () => {
+      modal.classList.add("hidden");
+      todo.classList.remove("remove");
+    });
+
+    modal.addEventListener("click", () => {
+      modal.classList.add("hidden");
+    });
+
+    del.addEventListener("click", () => {
+      modal.classList.add("hidden");
+
+      if (todo.classList.contains("remove")) {
+        todo.classList.add("fall");
+        todo.addEventListener("transitionend", () => todo.remove());
+        //counting the number of todos
+        total.textContent = `You have ${len - 1} todo(s).`;
+      }
+    });
+  }
+}
+
+function filterTodo(e) {
+  const todos = todoList.childNodes;
+  todos.forEach((todo) => {
+    switch (e.target.value) {
+      case "all":
+        todo.style.display = "flex";
+        break;
+      case "completed":
+        if (todo.classList.contains("completed")) {
+          todo.style.display = "flex";
+        } else {
+          todo.style.display = "none";
+        }
+        break;
+      case "uncompleted":
+        if (todo.classList.contains("completed")) {
+          todo.style.display = "none";
+        } else {
+          todo.style.display = "flex";
+        }
+        break;
     }
+  });
 }

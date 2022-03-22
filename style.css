@@ -32,6 +32,13 @@ header,form{
 
 .form-container{
     display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.input-area{
+    display: flex;
 }
 
 form{
@@ -41,8 +48,8 @@ form{
 }
 
 form input, form button{
-    padding: 6px;
-    font-size: 1.5rem;
+    padding: 5px;
+    font-size: 1.3rem;
     border: none;
     background-color: white;
 }
@@ -53,18 +60,19 @@ form input{
 
 form button{
     cursor: pointer;
-    color: #989572;
+    color: #6a8e7f;
     transition: all 0.3s ease;
 }
 
 form button:hover{
-    background-color: #989572;
+    background-color: #6a8e7f;
     color: white;
 }
 
 .error{
-    margin: 5px 0;
+    margin-top: 1rem;
     color: #da2121;
+    transition: all 0.3s ease-in-out;
 }
 
 .todo-container{
@@ -94,7 +102,7 @@ form button:hover{
 .todo-item{
     flex-grow: 1;
     list-style-type: none;
-    padding: 0 6px;
+    padding: 2px 6px;
     transition: all .2s ease;
 }
 
@@ -108,7 +116,7 @@ form button:hover{
 }
 
 .complete{
-    background-color: rgb(7, 87, 7);
+    background-color: rgb(60, 159, 68);
 }
 
 .fa-check,
@@ -147,7 +155,7 @@ form button:hover{
     background-color: white;
     color: black;
     padding:1rem;
-    border-radius: 2px;
+    border-radius: 4px;
     transition: all 0.3s ease-in-out;
     animation:zoom 0.2s;
 }
@@ -197,6 +205,49 @@ form button:hover{
 .hidden{
     display: none;
 }
+
+select{
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    border: none;
+    background-color: white;
+    color: #6a8e7f;
+    width: 12rem;
+    cursor: pointer;
+    padding: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+
+.filter{
+    position: relative;
+    overflow: hidden;
+}
+
+.filter::after{
+    content: "\25BC";
+    position: absolute;
+    background-color: #6a8e7f;
+    top: 0;
+    right: 0;
+    padding:9px;
+}
+
+.filter:hover::after{
+    background-color: white;
+    color: #6a8e7f;
+}
+
+.total{
+    position: relative;
+    top: 30px;
+    font-weight: 700;
+}
+
+/* Animations Used */
 
 @keyframes pop{
     from{
