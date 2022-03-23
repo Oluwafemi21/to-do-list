@@ -107,7 +107,6 @@ function deleteCheck(e) {
 }
 
 function filterTodo(e) {
-  console.log('ll')
   const todos = Array.from(todoList.childNodes);
   switch (e.target.value) {
     case "all":
