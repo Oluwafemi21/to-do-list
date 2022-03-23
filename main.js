@@ -6,11 +6,12 @@ const modal = document.querySelector(".modal");
 const filterList = document.querySelector(".filter-list");
 
 // EventListeners
+document.addEventListener("DOMContentLoaded", getTodo);
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
 
 // filter edits
-filterList.addEventListener('change', filterTodo)
+filterList.addEventListener("change", filterTodo);
 
 // Functions
 const todos = todoList.childNodes;
@@ -45,6 +46,9 @@ function addTodo(e) {
   todoDiv.appendChild(li);
   todoDiv.appendChild(btn1);
   todoDiv.appendChild(btn2);
+
+  // add todo to local storage
+  saveTodo(todoInput.value);
 
   // Append A Todo
   const errorMsg = document.querySelector(".error");
@@ -100,6 +104,7 @@ function deleteCheck(e) {
         }
 
         todo.classList.add("fall");
+        removeTodo(todo);
         todo.addEventListener("transitionend", () => todo.remove());
       }
     });
@@ -112,36 +117,104 @@ function filterTodo(e) {
     case "all":
       todos.map((todo) => {
         todo.style.display = "flex";
-      })
+      });
       total.textContent = `You have ${todos.length} todo(s).`;
       break;
 
     case "completed":
-      let arr1 = todos.filter((todo) => todo.classList.contains('completed'));
-      
+      let arr1 = todos.filter((todo) => todo.classList.contains("completed"));
+
       todos.map((todo) => {
-        if(!todo.classList.contains('completed')){
+        if (!todo.classList.contains("completed")) {
           todo.style.display = "none";
-        }
-        else{
+        } else {
           todo.style.display = "flex";
         }
-      })
+      });
       total.textContent = `You have completed ${arr1.length} todo(s).`;
       break;
 
     case "uncompleted":
-      let arr2 = todos.filter((todo) => !todo.classList.contains('completed'));
+      let arr2 = todos.filter((todo) => !todo.classList.contains("completed"));
 
       todos.map((todo) => {
-        if(!todo.classList.contains('completed')){
+        if (!todo.classList.contains("completed")) {
           todo.style.display = "flex";
-        }
-        else{
+        } else {
           todo.style.display = "none";
         }
-      })
+      });
       total.textContent = `You have ${arr2.length} uncompleted todo(s).`;
       break;
   }
+}
+
+// Save Todo to local storage
+function saveTodo(todo) {
+  // check if todois in localstrage
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+  todos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function getTodo() {
+  // check if todois in localstrage
+
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+  todos.forEach((todo) => {
+    // Create the main div
+    const todoDiv = document.createElement("div");
+    todoDiv.classList.add("todo");
+
+    // Create the li tag
+    const li = document.createElement("li");
+    li.textContent = todo;
+    li.classList.add("todo-item");
+
+    // Create the completed button
+    const btn1 = document.createElement("button");
+    // Create Check Icon
+    btn1.innerHTML = '<i class="fas fa-check"></i>';
+    btn1.classList.add("complete");
+
+    // Create the delete button
+    const btn2 = document.createElement("button");
+    // Create Delete Icon
+    btn2.innerHTML = '<i class="fas fa-trash"></i>';
+    btn2.classList.add("delete");
+
+    // Append All to the main div
+    todoDiv.appendChild(li);
+    todoDiv.appendChild(btn1);
+    todoDiv.appendChild(btn2);
+    todoList.appendChild(todoDiv);
+
+    //counting the number of todos
+    total.textContent = `You have ${todos.length} todo(s).`;
+  });
+}
+
+function removeTodo(todo) {
+  // check if todois in localstrage
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+
+  const todoIndex = todo.children[0].innerText;
+  todos.splice(todos.indexOf(todoIndex), 1);
+  console.log(todos.indexOf(todoIndex))
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
