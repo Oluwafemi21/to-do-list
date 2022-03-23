@@ -233,7 +233,7 @@ select{
     background-color: #6a8e7f;
     top: 0;
     right: 0;
-    padding:9px;
+    padding:6px;
 }
 
 .filter:hover::after{
@@ -242,9 +242,10 @@ select{
 }
 
 .total{
-    position: relative;
-    top: 30px;
+    display: block;
+    text-align: center;
     font-weight: 700;
+    margin-bottom: .5rem;
 }
 
 /* Animations Used */

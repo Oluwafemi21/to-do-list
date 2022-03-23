@@ -13,7 +13,6 @@ filterList.addEventListener("click", filterTodo);
 // Functions
 const todos = todoList.childNodes;
 const total = document.querySelector(".total");
-let len = 1;
 
 function addTodo(e) {
   // Prevent For from submitting
@@ -58,7 +57,7 @@ function addTodo(e) {
   todoInput.value = null;
 
   //counting the number of todos
-  total.textContent = `You have ${len++} todo(s).`;
+  total.textContent = `You have ${todos.length} todo(s).`;
 }
 
 function deleteCheck(e) {
@@ -90,10 +89,16 @@ function deleteCheck(e) {
       modal.classList.add("hidden");
 
       if (todo.classList.contains("remove")) {
+        //counting the number of todos
+        let len = todos.length;
+        if (len > 1) {
+          total.textContent = `You have ${len - 1} todo(s).`;
+        } else {
+          total.textContent = null;
+        }
+
         todo.classList.add("fall");
         todo.addEventListener("transitionend", () => todo.remove());
-        //counting the number of todos
-        total.textContent = `You have ${len - 1} todo(s).`;
       }
     });
   }
@@ -105,19 +110,39 @@ function filterTodo(e) {
     switch (e.target.value) {
       case "all":
         todo.style.display = "flex";
+        total.textContent = `You have ${todos.length} todo(s).`;
         break;
+
       case "completed":
+        let arr1 = [];
         if (todo.classList.contains("completed")) {
           todo.style.display = "flex";
+          for (todo of todos) {
+            if (todo.classList.contains("completed")) {
+              arr1.push(todo);
+            }
+          }
+          console.log(arr1);
+          total.textContent = `You have completed ${arr1.length} todo(s).`;
         } else {
           todo.style.display = "none";
+          total.textContent = `You have completed ${arr1.length} todo(s).`;
         }
         break;
+
       case "uncompleted":
+        let arr2 = [];
         if (todo.classList.contains("completed")) {
           todo.style.display = "none";
+          total.textContent = `You have ${arr2.length} uncompleted todo(s).`;
         } else {
           todo.style.display = "flex";
+          for (todo of todos) {
+            if (!todo.classList.contains("completed")) {
+              arr2.push(todo);
+            }
+          }
+          total.textContent = `You have ${arr2.length} uncompleted todo(s).`;
         }
         break;
     }
