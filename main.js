@@ -105,46 +105,41 @@ function deleteCheck(e) {
 }
 
 function filterTodo(e) {
-  const todos = todoList.childNodes;
-  todos.forEach((todo) => {
-    switch (e.target.value) {
-      case "all":
+  const todos = Array.from(todoList.childNodes);
+  switch (e.target.value) {
+    case "all":
+      todos.map((todo) => {
         todo.style.display = "flex";
-        total.textContent = `You have ${todos.length} todo(s).`;
-        break;
+      })
+      total.textContent = `You have ${todos.length} todo(s).`;
+      break;
 
-      case "completed":
-        let arr1 = [];
-        if (todo.classList.contains("completed")) {
-          todo.style.display = "flex";
-          for (todo of todos) {
-            if (todo.classList.contains("completed")) {
-              arr1.push(todo);
-            }
-          }
-          console.log(arr1);
-          total.textContent = `You have completed ${arr1.length} todo(s).`;
-        } else {
+    case "completed":
+      let arr1 = todos.filter((todo) => todo.classList.contains('completed'));
+      
+      todos.map((todo) => {
+        if(!todo.classList.contains('completed')){
           todo.style.display = "none";
-          total.textContent = `You have completed ${arr1.length} todo(s).`;
         }
-        break;
+        else{
+          todo.style.display = "flex";
+        }
+      })
+      total.textContent = `You have completed ${arr1.length} todo(s).`;
+      break;
 
-      case "uncompleted":
-        let arr2 = [];
-        if (todo.classList.contains("completed")) {
-          todo.style.display = "none";
-          total.textContent = `You have ${arr2.length} uncompleted todo(s).`;
-        } else {
+    case "uncompleted":
+      let arr2 = todos.filter((todo) => !todo.classList.contains('completed'));
+
+      todos.map((todo) => {
+        if(!todo.classList.contains('completed')){
           todo.style.display = "flex";
-          for (todo of todos) {
-            if (!todo.classList.contains("completed")) {
-              arr2.push(todo);
-            }
-          }
-          total.textContent = `You have ${arr2.length} uncompleted todo(s).`;
         }
-        break;
-    }
-  });
+        else{
+          todo.style.display = "none";
+        }
+      })
+      total.textContent = `You have ${arr2.length} uncompleted todo(s).`;
+      break;
+  }
 }
