@@ -3,12 +3,16 @@ const todoInput = document.querySelector(".todo-input");
 const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
 const modal = document.querySelector(".modal");
-const filterList = document.querySelector(".filter-list");
+const filterList = Array.from(document.querySelectorAll(".filters"));
 
 // EventListeners
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
-filterList.addEventListener("click", filterTodo);
+
+// filter edits
+filterList.forEach((filter) => {
+  filter.addEventListener("click", filterTodo);
+})
 
 // Functions
 const todos = todoList.childNodes;
