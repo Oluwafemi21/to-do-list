@@ -3,16 +3,14 @@ const todoInput = document.querySelector(".todo-input");
 const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
 const modal = document.querySelector(".modal");
-const filterList = Array.from(document.querySelectorAll(".filters"));
+const filterList = document.querySelector(".filter-list");
 
 // EventListeners
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
 
 // filter edits
-filterList.forEach((filter) => {
-  filter.addEventListener("click", filterTodo);
-})
+filterList.addEventListener('change', filterTodo)
 
 // Functions
 const todos = todoList.childNodes;
@@ -109,6 +107,7 @@ function deleteCheck(e) {
 }
 
 function filterTodo(e) {
+  console.log('ll')
   const todos = Array.from(todoList.childNodes);
   switch (e.target.value) {
     case "all":
